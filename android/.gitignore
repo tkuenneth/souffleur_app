@@ -1,0 +1,26 @@
+# Built Files
+*.apk
+*.ap_
+/build/
+
+# Local Configuration 
+*.iml
+.gradle/
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+
+# Dependency Downloads
+/captures/
+
+# User Preferences
+.DS_Store
+/Thumbs.db
+
+# IntelliJ Generated Files
+/.idea/caches/
+/.idea/modules.xml
+/.idea/assetWizardSettings.xml
+
+# Keystore
+*.jks

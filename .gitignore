@@ -1,0 +1,17 @@
+**/.idea
+**/.vscode
+**/build
+**/.dart_tool
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/pubspec.lock
+.packages
+*.apk
+*.ap_
+**/.DS_Store
+**/Thumbs.db
+*.jks
+*.iml
+.gradle/
+**/local.properties
+**/captures/
