@@ -50,15 +50,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   barcode_scan2: 0af2bb63c81b4565aab6cd78278e4c0fa136dbb0
-  device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   sensors_plus: 5717760720f7e6acd96fdbd75b7428f5ad755ec2
-  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   SwiftProtobuf: 40bd808372cb8706108f22d28f8ab4a6b9bc6989
-  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
+  url_launcher_ios: bbd758c6e7f9fd7b5b1d4cde34d2b95fcce5e812
   vibration: 7d883d141656a1c1a6d8d238616b2042a51a1241
 
-PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.15.2
