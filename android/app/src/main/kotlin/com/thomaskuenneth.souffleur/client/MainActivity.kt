@@ -1,4 +1,4 @@
-package eu.thomaskuenneth.souffleur.client
+package de.thomaskuenneth.souffleur
 
 import io.flutter.embedding.android.FlutterActivity
 

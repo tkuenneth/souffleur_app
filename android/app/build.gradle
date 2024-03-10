@@ -7,7 +7,7 @@ plugins {
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
+    localPropertiesFile.withReader('UTF-8') { Reader reader ->
         localProperties.load(reader)
     }
 }
@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file("key.properties")
+def File keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
@@ -40,7 +40,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "eu.thomaskuenneth.souffleur.client"
+        applicationId "de.thomaskuenneth.souffleur"
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -50,10 +50,11 @@ android {
 
     signingConfigs {
         release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties.getProperty("keyAlias")
+            keyPassword keystoreProperties.getProperty('keyPassword')
+            storeFile keystoreProperties.getProperty('storeFile')
+                    ? file(keystoreProperties.getProperty('storeFile')) : null
+            storePassword keystoreProperties.getProperty('storePassword')
         }
     }
 
@@ -72,7 +73,7 @@ android {
         jvmTarget = '17'
     }
 
-    namespace "eu.thomaskuenneth.souffleur.client"
+    namespace "de.thomaskuenneth.souffleur"
 }
 
 flutter {
