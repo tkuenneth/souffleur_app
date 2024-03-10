@@ -4,9 +4,9 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
+import 'package:shake/shake.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:shake/shake.dart';
 import 'package:vibration/vibration.dart';
 
 const String _urlHomepage = "https://www.thomaskuenneth.de/souffleur";
@@ -163,99 +163,116 @@ class _SouffleurClientState extends State<SouffleurClient>
     return SafeArea(
         child: Container(
             decoration: BoxDecoration(color: theme?.colorScheme.surface),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Directionality(
-                textDirection: TextDirection.ltr,
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: _createButtons(context),
-                      ),
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: _createContent(context),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             )));
   }
 
-  Widget _createButtons(BuildContext context) {
+  Widget _createContent(BuildContext context) {
     if (isLastKnownUrlValid()) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: _createRoundedButton(_sendCommandHome, _symbolHome, context),
-          ),
-          Expanded(
-              flex: 3,
-              child: Padding(
-                  padding: const EdgeInsets.only(top: 8, bottom: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          child: _createRoundedButton(
-                              _sendCommandPrevious, _symbolPrevious, context)),
-                      Expanded(
-                          child: Padding(
-                              padding: const EdgeInsets.only(left: 8),
-                              child: _createRoundedButton(
-                                  _sendCommandNext, _symbolNext, context))),
-                    ],
-                  ))),
-          Expanded(
-            child: _createRoundedButton(_sendCommandEnd, _symbolEnd, context),
-          )
-        ],
-      );
+      return _createButtons(context);
     } else {
-      final TextTheme theme = Theme.of(context).textTheme;
-      return SingleChildScrollView(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _createTextWithMaxWidth(AppLocalizations.of(context)!.welcome,
-              TextAlign.center, theme.headlineMedium!,
-              padding: EdgeInsets.zero),
-          _createTextWithMaxWidth(AppLocalizations.of(context)!.not_linked,
-              TextAlign.center, theme.bodyLarge!),
-          _createTextWithMaxWidth(AppLocalizations.of(context)!.instructions_01,
-              TextAlign.center, theme.bodyLarge!),
-          GestureDetector(
-            child: Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text(
-                  _urlHomepage,
-                  style: theme.bodyLarge!
-                      .copyWith(decoration: TextDecoration.underline),
-                )),
-            onTap: () async {
-              try {
-                await launchUrl(Uri.parse(_urlHomepage));
-              } catch (err) {
-                debugPrint('Something bad happened');
-              }
-            },
-          ),
-          _createTextWithMaxWidth(AppLocalizations.of(context)!.instructions_02,
-              TextAlign.center, theme.bodyLarge!),
-          _createTextWithMaxWidth(AppLocalizations.of(context)!.instructions_03,
-              TextAlign.center, theme.bodyLarge!),
-          _createTextWithMaxWidth(AppLocalizations.of(context)!.instructions_04,
-              TextAlign.center, theme.bodyLarge!,
-              padding: const EdgeInsets.only(top: 16, bottom: 24)),
-          TextButton(
-              onPressed: _scanQRCode,
-              child: Text(AppLocalizations.of(context)!.scan)),
-        ],
-      ));
+      return _createInstallInstructions(context);
     }
+  }
+
+  Widget _createButtons(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: _createRoundedButton(_sendCommandHome, _symbolHome, context),
+        ),
+        Expanded(
+            flex: 3,
+            child: Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: _createRoundedButton(
+                            _sendCommandPrevious, _symbolPrevious, context)),
+                    Expanded(
+                        child: Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: _createRoundedButton(
+                                _sendCommandNext, _symbolNext, context))),
+                  ],
+                ))),
+        Expanded(
+          child: _createRoundedButton(_sendCommandEnd, _symbolEnd, context),
+        )
+      ],
+    );
+  }
+
+  Widget _createInstallInstructions(BuildContext context) {
+    final TextTheme theme = Theme.of(context).textTheme;
+    return SingleChildScrollView(
+        child: Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _createTextWithMaxWidth(AppLocalizations.of(context)!.welcome,
+                    TextAlign.center, theme.headlineMedium!,
+                    padding: EdgeInsets.zero),
+                _createTextWithMaxWidth(
+                    AppLocalizations.of(context)!.not_linked,
+                    TextAlign.center,
+                    theme.bodyLarge!),
+                _createTextWithMaxWidth(
+                    AppLocalizations.of(context)!.instructions_01,
+                    TextAlign.center,
+                    theme.bodyLarge!),
+                GestureDetector(
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        _urlHomepage,
+                        style: theme.bodyLarge!
+                            .copyWith(decoration: TextDecoration.underline),
+                      )),
+                  onTap: () async {
+                    try {
+                      await launchUrl(Uri.parse(_urlHomepage));
+                    } catch (err) {
+                      debugPrint('Something bad happened');
+                    }
+                  },
+                ),
+                _createTextWithMaxWidth(
+                    AppLocalizations.of(context)!.instructions_02,
+                    TextAlign.center,
+                    theme.bodyLarge!),
+                _createTextWithMaxWidth(
+                    AppLocalizations.of(context)!.instructions_03,
+                    TextAlign.center,
+                    theme.bodyLarge!),
+                _createTextWithMaxWidth(
+                    AppLocalizations.of(context)!.instructions_04,
+                    TextAlign.center,
+                    theme.bodyLarge!,
+                    padding: const EdgeInsets.only(top: 16, bottom: 24)),
+                TextButton(
+                    onPressed: _scanQRCode,
+                    child: Text(AppLocalizations.of(context)!.scan)),
+              ],
+            )));
   }
 
   Widget _createTextWithMaxWidth(
