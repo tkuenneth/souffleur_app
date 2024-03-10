@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "welcome": "Welcome to Souffleur",
   "scan": "Scan QR code",
   "unlink": "Unlink",

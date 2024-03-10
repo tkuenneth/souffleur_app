@@ -1,4 +1,5 @@
 {
+  "@@locale": "de",
   "welcome": "Willkommen zu Souffleur",
   "scan": "QR Code scannen",
   "unlink": "Verknüpfung aufheben",
