@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:shake/shake.dart';
@@ -27,6 +28,10 @@ const _strHome = "home";
 const _strEnd = "end";
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(systemNavigationBarColor: Colors.transparent));
   runApp(const SouffleurClient());
 }
 
@@ -161,6 +166,7 @@ class _SouffleurClientState extends State<SouffleurClient>
 
   Widget _createBody(BuildContext context) {
     return SafeArea(
+        bottom: false,
         child: Container(
             decoration: BoxDecoration(color: theme?.colorScheme.surface),
             child: Directionality(
@@ -287,15 +293,16 @@ class _SouffleurClientState extends State<SouffleurClient>
 
   Widget _createRoundedButton(
       void Function() command, IconData iconData, BuildContext context) {
-    var color = theme!.colorScheme.primary;
     return IconButton(
       icon: Icon(iconData),
       onPressed: command,
       style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(theme!.colorScheme.secondaryContainer),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: color)))),
+            borderRadius: BorderRadius.circular(12.0),
+          ))),
     );
   }
 
