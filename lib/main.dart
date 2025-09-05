@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:shake/shake.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
+
+import 'l10n/app_localizations.dart';
 
 const String _urlHomepage = "https://www.thomaskuenneth.de/souffleur";
 const String _keyLastKnownUrl = 'lastKnownUrl';
@@ -70,7 +72,7 @@ class _SouffleurClientState extends State<SouffleurClient>
     });
     WidgetsBinding.instance.addObserver(this);
     detector = ShakeDetector.waitForStart(
-      onPhoneShake: () {
+      onPhoneShake: (_) {
         _sendCommandNext();
       },
       minimumShakeCount: 1,

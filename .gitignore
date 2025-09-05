@@ -17,3 +17,6 @@
 **/captures/
 lib/generated
 android/key.properties
+
+# generated localization files
+lib/l10n/*.dart
