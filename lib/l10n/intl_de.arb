@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "welcome": "Willkommen zu Souffleur",
+  "welcome": "Willkommen",
   "scan": "QR Code scannen",
   "unlink": "Verknüpfung aufheben",
   "enable_shake": "Schütteln einschalten",

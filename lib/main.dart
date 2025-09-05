@@ -12,7 +12,7 @@ import 'package:vibration/vibration.dart';
 
 import 'l10n/app_localizations.dart';
 
-const String _urlHomepage = "https://www.thomaskuenneth.de/souffleur";
+const String _urlHomepage = "https://www.tkuenneth.dev/souffleur_server";
 const String _keyLastKnownUrl = 'lastKnownUrl';
 const String _keyShakeEnabled = "shakeEnabled";
 const String _appName = "Souffleur";
@@ -38,7 +38,7 @@ void main() {
 }
 
 class SouffleurClient extends StatefulWidget {
-  const SouffleurClient({Key? key}) : super(key: key);
+  const SouffleurClient({super.key});
 
   @override
   State<SouffleurClient> createState() => _SouffleurClientState();
@@ -231,7 +231,7 @@ class _SouffleurClientState extends State<SouffleurClient>
     final TextTheme theme = Theme.of(context).textTheme;
     return SingleChildScrollView(
         child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -252,6 +252,7 @@ class _SouffleurClientState extends State<SouffleurClient>
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
                         _urlHomepage,
+                        textAlign: TextAlign.center,
                         style: theme.bodyLarge!
                             .copyWith(decoration: TextDecoration.underline),
                       )),
@@ -300,8 +301,8 @@ class _SouffleurClientState extends State<SouffleurClient>
       onPressed: command,
       style: ButtonStyle(
           backgroundColor:
-              MaterialStateProperty.all(theme!.colorScheme.secondaryContainer),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              WidgetStateProperty.all(theme!.colorScheme.secondaryContainer),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ))),
