@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:barcode_scan2/barcode_scan2.dart';
@@ -231,7 +232,8 @@ class _SouffleurClientState extends State<SouffleurClient>
     final TextTheme theme = Theme.of(context).textTheme;
     return SingleChildScrollView(
         child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
+            padding:
+                const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -280,6 +282,9 @@ class _SouffleurClientState extends State<SouffleurClient>
                 TextButton(
                     onPressed: _scanQRCode,
                     child: Text(AppLocalizations.of(context)!.scan)),
+                TextButton(
+                    onPressed: _pasteFromClipboard,
+                    child: Text(AppLocalizations.of(context)!.checkClipboard)),
               ],
             )));
   }
@@ -297,11 +302,14 @@ class _SouffleurClientState extends State<SouffleurClient>
   Widget _createRoundedButton(
       void Function() command, IconData iconData, BuildContext context) {
     return IconButton(
-      icon: Icon(iconData),
+      icon: Icon(
+        iconData,
+        color: theme!.colorScheme.onTertiaryContainer,
+      ),
       onPressed: command,
       style: ButtonStyle(
           backgroundColor:
-              WidgetStateProperty.all(theme!.colorScheme.secondaryContainer),
+              WidgetStateProperty.all(theme!.colorScheme.tertiaryContainer),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
@@ -385,6 +393,16 @@ class _SouffleurClientState extends State<SouffleurClient>
       detector?.startListening();
     } else {
       detector?.stopListening();
+    }
+  }
+
+  void _pasteFromClipboard() async {
+    final ClipboardData? data = await Clipboard.getData(Clipboard.kTextPlain);
+    if (data != null && data.text != null) {
+      String url = data.text!;
+      if (url.contains(_protocolHttps)) {
+        updateLastKnownUrl(data.text, true);
+      }
     }
   }
 }
